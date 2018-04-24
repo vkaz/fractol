@@ -13,10 +13,14 @@ typedef struct		s_mlx
 	void			*win_ptr;
 	double			x;
 	double			y;
-	double			radius;
+	double			c_re;
+	double			c_im;
+	double			x_new;
+	int				row;
+	int				col;
 	int				width;
 	int				height;
-	int				n;
+	int				i;
 }					t_mlx;
 
 #endif

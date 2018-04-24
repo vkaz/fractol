@@ -6,7 +6,7 @@ ERC=\033[31m
 WAC=\033[33m
 
 cc = gcc
-C_FLAGS = -Wall -Wextra -Werror -g
+C_FLAGS = -Wall -Wextra #-Werror -g
 FRAM = -I minilibx -lmlx -framework OpenGL -framework AppKit -g
 
 OBJ_PATH = ./obj/

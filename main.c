@@ -10,78 +10,30 @@ static int		key_hook(int keycode, t_mlx *param)
 	return (0);
 }
 
-t_mlx   sqr(t_mlx a)
+void mani(t_mlx *frac)
 {
-    t_mlx   c;
+	double x,xx,y,cx,cy;
+	int iteration,hx,hy;
+	int itermax = 100;		/* how many iterations to do	*/
+	double magnify=1.0;		/* no magnification		*/
+	int hxres = 1080;		/* horizonal resolution		*/
+	int hyres = 1080;		/* vertical resolution		*/
 
-    c.x = a.x * a.x - a.y * a.y;
-	c.y = 2 * a.x * a.y;
-	return (c);
-}
-
-double  mod(t_mlx a)
-{
-    return (sqrt(a.x * a.x + a.y * a.y));
-}
-
-t_mlx   add(t_mlx a, t_mlx *b)
-{
-    t_mlx   c;
-
-    c.x = a.x + b->x;
-    c.y = a.y + b->y;
-    return (c);
-}
-
-t_mlx   mapPoint(t_mlx *c)
-{
-    int     l;
-    
-    l = (c->width < c->height) ? c->width:c->height;
-    c->x = 2 * c->radius * (c->x - c->width / 2.0) / 1;
-    c->y = 2 * c->radius * (c->y - c->height / 2.0) / 1;
-    return (*c);
-}
-
-void    julia(t_mlx *frac)
-{
-    int     x;
-    int     y;
-    int     i;
-    t_mlx   z0, z1;
-
-    x = 0;
-    while (x++ <= frac->width)
-    {
-        y = 0;
-        while (y++ <= frac->height)
-        {
-            i = 1;
-            z0 = mapPoint(frac);
-            while (i++ <= frac->n)
-            {
-                z1 = add(sqr(z0), frac);
-                if (mod(z1) > frac->radius)
-                    mlx_pixel_put(frac->mlx_ptr, frac->win_ptr, x, y, 0x0800ff);
-               // i++;
-            }
-            z0 = z1;
-            //y++;
-        }
-        if (i > frac->n)
-            mlx_pixel_put(frac->mlx_ptr, frac->win_ptr, x, y, 0x0800ff);
-        //x++;
-    }
-}
-
-void    init(t_mlx *frac)
-{
-    frac->width = 80;
-    frac->height = 60;
-    frac->radius = 4;
-    frac->x = 4;
-    frac->y = 8;
-    frac->n = 10;
+	for (hy=1;hy<=hyres;hy++)  {
+		for (hx=1;hx<=hxres;hx++)  {
+			cx = (((float)hx)/((float)hxres)-0.5)/magnify*3.0-0.7;
+			cy = (((float)hy)/((float)hyres)-0.5)/magnify*3.0;
+			x = 0.0; y = 0.0;
+			for (iteration=1;iteration<itermax;iteration++)  {
+				xx = x*x-y*y+cx;
+				y = 2.0*x*y+cy;
+				x = xx;
+				if (x*x+y*y>100.0)  iteration = 9999;
+			}
+			if (iteration<9999)  mlx_pixel_put(frac->mlx_ptr, frac->win_ptr, hx, hy, 0x04fc00);
+			else mlx_pixel_put(frac->mlx_ptr, frac->win_ptr, hx, hy, 0x000000);
+		}
+	}
 }
 
 int     main(void)
@@ -92,8 +44,9 @@ int     main(void)
     frac.mlx_ptr = mlx_init();
     frac.win_ptr = mlx_new_window(frac.mlx_ptr, 1920, 1080, "Fractol");
     mlx_key_hook(frac.win_ptr, key_hook, &frac);
-    init(&frac);
-    julia(&frac);
+   // frac(&frac);
+    mani(&frac);
     mlx_loop(frac.mlx_ptr);
     return (0);
 }
+
