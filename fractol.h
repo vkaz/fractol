@@ -9,18 +9,21 @@
 
 typedef struct		s_mlx
 {
-	void			*mlx_ptr;
-	void			*win_ptr;
+	void			*mlx;
+	int				img;
+	void			*win;
 	double			x;
 	double			y;
-	double			c_re;
-	double			c_im;
-	double			x_new;
-	int				row;
-	int				col;
-	int				width;
-	int				height;
-	int				i;
+	double			xx;
+	double			cx;
+	double			cy;
+	double			magnify;
+	int				iteration;
+	int				hx;
+	int				hy;
+	int				itermax;
+	int				hxres;
+	int				hyres;
 }					t_mlx;
 
 #endif
