@@ -12,13 +12,13 @@ static int		key_hook(int keycode, t_mlx *param)
 
 void mani(t_mlx *frac)
 {
-	while (frac->hy <= frac->hyres)
+	while (frac->hy <= H)
 	{
 		frac->hx = 1;
-		while (frac->hx <= frac->hxres)
+		while (frac->hx <= W)
 		{
-			frac->cx = (((float)frac->hx) / ((float)frac->hxres) - 0.5) / frac->magnify * 3.0 - 0.7;
-			frac->cy = (((float)frac->hy) / ((float)frac->hyres) - 0.5) / frac->magnify * 3.0;
+			frac->cx = (((float)frac->hx) / (W) - 0.5) / frac->magnify * 3.0 - 0.7;
+			frac->cy = (((float)frac->hy) / (H) - 0.5) / frac->magnify * 3.0;
 			frac->x = 0.0;
 			frac->y = 0.0;
 			frac->iteration = 1;
@@ -41,7 +41,7 @@ void mani(t_mlx *frac)
 	}
 }
 
-void	init(t_mlx *frac)
+void	init(t_mlx *frac, t_jul *jul)
 {
 	frac->x = 0;
 	frac->xx = 0;
@@ -51,20 +51,31 @@ void	init(t_mlx *frac)
 	frac->iteration = 0;
 	frac->itermax = 1000;
 	frac->magnify = 1.0;
-	frac->hxres = 1080;
-	frac->hyres = 720;
 	frac->hy = 1;
+	jul->zoom = 1;
+	jul->moveX = 0;
+	jul->moveY = 0;
+	jul->maxIteration = 300;
+	jul->cIm = 0.27015;
+	jul->cRe = -0.7;
 }
 
 int     main(void)
 {
     t_mlx	frac;
+	t_jul	jul;
 
-	init(&frac);
+	init(&frac, &jul);
     frac.mlx = mlx_init();
-    frac.win = mlx_new_window(frac.mlx, frac.hxres, frac.hyres, "Fractol");
+    frac.win = mlx_new_window(frac.mlx, W, H, "Fractol");
+	//frac.img = mlx_new_image(frac.mlx, frac.hxres, frac.hyres);
+	//frac.data = mlx_get_data_addr(frac.img, 8, 10, 100);
+	//mlx_put_image_to_window(frac.mlx, frac.win, frac.img, 0, 0);
+	//mlx_destroy_image(frac.mlx, frac.img);
+	julia(&jul, &frac);
+	mlx_hook(frac.win, 6, (1L << 6), mouse_move, (void*)&jul);
     mlx_key_hook(frac.win, key_hook, &frac);
-    mani(&frac);
+    //mani(&frac);
     mlx_loop(frac.mlx);
     return (0);
 }
