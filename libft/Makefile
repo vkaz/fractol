@@ -38,17 +38,17 @@ OBJ=$(SRC:.c=.o)
 all: $(NAME)
 
 %.o: %.c
-	$(CC) $(FLAGS) -c -o $@ $<
+	@$(CC) $(FLAGS) -c -o $@ $<
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 clean:
-	$(RM) $(OBJ)
+	@$(RM) $(OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 

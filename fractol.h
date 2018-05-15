@@ -7,11 +7,17 @@
 # include <stdlib.h>
 # include "libft/libft.h"
 
-# define H 		720
-# define W	 	1080
+# define H 		1080
+# define W	 	1920
 
-typedef struct		s_jul
+typedef struct		s_mlx
 {
+	void			*mlx;
+	void			*win;
+	void			*img;
+	int				bpp;
+	int				sizeline;
+	int				end;
 	double			cRe;
 	double			cIm;
 	double			newRe;
@@ -24,45 +30,38 @@ typedef struct		s_jul
 	int				maxIteration;
 	int				x;
 	int				y;
-}					t_jul;
-
-typedef struct		s_mlx
-{
-	t_jul			*julia;
-	void			*mlx;
-	void			*img;
-	void			*win;
-	char			*data;
-	double			x;
-	double			y;
-	double			xx;
-	double			cx;
-	double			cy;
+	int				x1;
+	int				y1;
+	int				*data;
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
+	int				color;
+	int				xx;
+	int				cx;
 	double			magnify;
-	int				iteration;
-	int				hx;
-	int				hy;
-	int				itermax;
-	char			mouse_stop;
+	int				cy;
+	int				i;
+	double			xmin;
+	double			xmax;
+	double			ymin;
+	double			ymax;
+	double			zr;
+	double			zi;
+	double			ci;
+	double			cr;
+	double			tmp;
+	int 			fractal;
 }					t_mlx;
 
-typedef struct		s_img
-{
-	void			*seld;
-	char			*buff;
-	int				bpp;
-	int				bpl;
-	int				end;
-}					t_img;
-
-typedef struct		s_color
-{
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-}					t_color;
-
-void julia(t_jul *jul, t_mlx *scr);
+void        juliaa(t_mlx *mlx);
+void		do_it(t_mlx *data);
 int         mouse_move(int x, int y, void *data);
+void        pix_to_img(t_mlx *data, int x, int y, int color);
+void 	mend(t_mlx *mlx);
+void 	lyam(t_mlx *mlx);
+void	init_lyam(t_mlx *mlx);
+void	init_mend(t_mlx *mlx);
+void	init_julia(t_mlx *mlx);
 
 #endif

@@ -4,79 +4,56 @@ static int		key_hook(int keycode, t_mlx *param)
 {
 	if (keycode == 53)
 	{
-        mlx_destroy_window(param->mlx, param->win);
+		mlx_destroy_window(param->mlx, param->win);
+		mlx_destroy_image(param->mlx, param->mlx);
+		//system("leaks fractol");
         exit(1);
     }
 	return (0);
 }
 
-void mani(t_mlx *frac)
+void	error_arg(void)
 {
-	while (frac->hy <= H)
+	write(1, "\033[33mUsage <filename> [mandelbrot/julia/burningship]\n", 53);
+	exit(1);
+}
+
+void	check(t_mlx *mlx, char *str)
+{
+	if (ft_strcmp(str, "mandelbrot") == 0)
 	{
-		frac->hx = 1;
-		while (frac->hx <= W)
-		{
-			frac->cx = (((float)frac->hx) / (W) - 0.5) / frac->magnify * 3.0 - 0.7;
-			frac->cy = (((float)frac->hy) / (H) - 0.5) / frac->magnify * 3.0;
-			frac->x = 0.0;
-			frac->y = 0.0;
-			frac->iteration = 1;
-			while (frac->iteration < frac->itermax)
-			{
-				frac->xx = frac->x * frac->x - frac->y * frac->y + frac->cx;
-				frac->y = 2.0 * frac->x * frac->y + frac->cy;
-				frac->x = frac->xx;
-				if ((frac->x * frac->x + frac->y * frac->y) > 100.0)
-					frac->iteration = 1001;
-				frac->iteration++;
-			}
-			if (frac->iteration < 1001)
-				mlx_pixel_put(frac->mlx, frac->win, frac->hx, frac->hy, 0x04fc00);
-			else
-				mlx_pixel_put(frac->mlx, frac->win, frac->hx, frac->hy, 0x0061ff);
-			frac->hx++;
-		}
-		frac->hy++;
+		init_mend(mlx);
+		mend(mlx);
+		mlx->fractal = 0;
+		return ;
 	}
+	else if (ft_strcmp(str, "julia") == 0)
+	{
+		init_julia(mlx);
+		juliaa(mlx);
+		mlx->fractal = 0;
+		return ;
+	}
+	else if (ft_strcmp(str, "burningship") == 0)
+	{
+		init_lyam(mlx);
+		mlx->fractal = 0;
+		return ;
+	}
+	mlx->fractal = 1;
 }
 
-void	init(t_mlx *frac, t_jul *jul)
+int      main (int argc, char **argv)
 {
-	frac->x = 0;
-	frac->xx = 0;
-	frac->y = 0;
-	frac->cx = 0;
-	frac->cy = 0;
-	frac->iteration = 0;
-	frac->itermax = 1000;
-	frac->magnify = 1.0;
-	frac->hy = 1;
-	jul->zoom = 1;
-	jul->moveX = 0;
-	jul->moveY = 0;
-	jul->maxIteration = 300;
-	jul->cIm = 0.27015;
-	jul->cRe = -0.7;
+	t_mlx	mlx;
+
+	if (argc != 2)
+		error_arg();
+	check(&mlx, argv[1]);
+	if (mlx.fractal == 1)
+		error_arg();
+	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
+	mlx_key_hook(mlx.win, key_hook, &mlx);
+	mlx_loop(mlx.mlx);	
+	return (0);
 }
-
-int     main(void)
-{
-    t_mlx	frac;
-	t_jul	jul;
-
-	init(&frac, &jul);
-    frac.mlx = mlx_init();
-    frac.win = mlx_new_window(frac.mlx, W, H, "Fractol");
-	//frac.img = mlx_new_image(frac.mlx, frac.hxres, frac.hyres);
-	//frac.data = mlx_get_data_addr(frac.img, 8, 10, 100);
-	//mlx_put_image_to_window(frac.mlx, frac.win, frac.img, 0, 0);
-	//mlx_destroy_image(frac.mlx, frac.img);
-	julia(&jul, &frac);
-	mlx_hook(frac.win, 6, (1L << 6), mouse_move, (void*)&jul);
-    mlx_key_hook(frac.win, key_hook, &frac);
-    //mani(&frac);
-    mlx_loop(frac.mlx);
-    return (0);
-}
-
