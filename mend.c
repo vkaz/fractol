@@ -2,16 +2,20 @@
 
 void	mend_iter(t_mlx *mlx)
 {
-	mlx->newRe = 1.5 * (mlx->x - W / 2) / (0.5 * mlx->zoom * W) + mlx->moveX;
-	mlx->newIm = (mlx->y - H / 2) / (0.5 * mlx->zoom * H) + mlx->moveY;
+	
+	mlx->cr = 1.5 * (mlx->x - mlx->W / 2) / (0.5 * mlx->zoom * mlx->W) + mlx->moveX;
+	mlx->ci = (mlx->y - mlx->H / 2) / (0.5 * mlx->zoom * mlx->H) + mlx->moveY;
+	mlx->newRe = 0; 
+	mlx->newIm = 0;
+	mlx->oldRe = 0;
+	mlx->oldIm = 0;
 	mlx->i = 0;
 	while (mlx->i < mlx->maxIteration)
 	{
-		mlx->oldRe = mlx->newRe;
-		mlx->oldIm = mlx->newIm;
-		mlx->newRe = mlx->oldRe * mlx->oldRe - mlx->oldIm * mlx->oldIm + mlx->newRe;
-		mlx->newIm = 2 * mlx->oldRe * mlx->oldIm + mlx->newIm;
-		if ((mlx->newRe * mlx->newRe + mlx->newIm * mlx->newIm) > 4)
+		mlx->tmp = mlx->newRe;
+		mlx->newRe = (mlx->newRe * mlx->newRe) - (mlx->newIm * mlx->newIm) + mlx->cr;
+		mlx->newIm = (2 * mlx->tmp * mlx->newIm) + mlx->ci;
+		if ((mlx->newRe * mlx->newRe) + (mlx->newIm * mlx->newIm) > 4)
 			break ;
 		mlx->i++;
 	}
@@ -24,29 +28,29 @@ void	init_mend(t_mlx *mlx)
 	int 	end;
 
 	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, W, H, "fractol");
-	mlx->img = mlx_new_image(mlx->mlx, W, H);
+	mlx->win = mlx_new_window(mlx->mlx, mlx->W, mlx->H, "fractol");
+	mlx->img = mlx_new_image(mlx->mlx, mlx->W, mlx->H);
 	mlx->data = (int*)mlx_get_data_addr(mlx->img, &bpp, &sizeline, &end);
 	mlx->bpp = bpp;
 	mlx->sizeline = sizeline;
 	mlx->end = end;
-	mlx->zoom = 1;
+	mlx->zoom = 1.0;
 	mlx->moveX = -0.5;
 	mlx->moveY = 0;
-	mlx->maxIteration = 42;
-	mlx->newRe = 0;
-	mlx->newIm = 0;
-	mlx->oldRe = 0;
-	mlx->oldIm = 0;
+	mlx->maxIteration = 100;
+	mlx->cr = 0;
+	mlx->ci = 0;
+	mlx->tmp = 0;
+	mend(mlx);
 }
 
 void 	mend(t_mlx *mlx)
 {
 	mlx->y = -1;
-	while (++mlx->y < H)
+	while (++mlx->y < mlx->H)
 	{
 		mlx->x = -1;
-		while (++mlx->x < W)
+		while (++mlx->x < mlx->W)
 		{
 			mend_iter(mlx);
 			if (mlx->i == mlx->maxIteration)

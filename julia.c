@@ -1,16 +1,9 @@
 #include "fractol.h"
 
-void        pix_to_img(t_mlx *data, int x, int y, int color)
-{
-	if (data->i != data->maxIteration)
-		color = color % 255 * data->i;
-	data->data[W * y + x]= color;
-}
-
 void        jul_iter(t_mlx *mlx)
 {
-	mlx->newRe = 1.5 * (mlx->x - W / 2) / (0.5 * mlx->zoom * W) + mlx->moveX;
-	mlx->newIm = (mlx->y - H / 2) / (0.5 * mlx->zoom * H) + mlx->moveY;
+	mlx->newRe = 1.5 * (mlx->x - mlx->W / 2) / (0.5 * mlx->zoom * mlx->W) + mlx->moveX;
+	mlx->newIm = (mlx->y - mlx->H / 2) / (0.5 * mlx->zoom * mlx->H) + mlx->moveY;
 	mlx->i = 0;
 	while (mlx->i < mlx->maxIteration)
 	{
@@ -30,34 +23,33 @@ void	init_julia(t_mlx *mlx)
 	int 	sizeline;
 	int 	end;
 
-	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, W, H, "fractol");
-	mlx->img = mlx_new_image(mlx->mlx, W, H);
+	mlx->img = mlx_new_image(mlx->mlx, mlx->W, mlx->H);
 	mlx->data = (int*)mlx_get_data_addr(mlx->img, &bpp, &sizeline, &end);
 	mlx->bpp = bpp;
 	mlx->sizeline = sizeline;
 	mlx->end = end;
-	mlx->zoom = 1;
+	mlx->zoom = 1.0;
 	mlx->moveX = 0;
 	mlx->moveY = 0;
-	mlx->maxIteration = 100;
 	mlx->cIm = 0.27015;
 	mlx->cRe = -0.7;
+	juliaa(mlx);
 }
 
 void        juliaa(t_mlx *mlx)
 {
 	mlx->y = -1;
-	while (++mlx->y < H)
+	while (++mlx->y < mlx->H)
 	{
 		mlx->x = -1;
-		while (++mlx->x < W)
+		while (++mlx->x < mlx->W)
 		{
 			jul_iter(mlx);
 			if (mlx->i == mlx->maxIteration)
-				pix_to_img(mlx, mlx->x, mlx->y, 0x623324);
+				pix_to_img(mlx, mlx->x, mlx->y, mlx->c1);
 			else
-				pix_to_img(mlx, mlx->x, mlx->y, 0x00ff65);
+				pix_to_img(mlx, mlx->x, mlx->y, mlx->c2);
 		}
 	}
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }

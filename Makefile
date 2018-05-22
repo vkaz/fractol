@@ -6,7 +6,7 @@ RED=\033[31m
 YELL=\033[33m
 
 cc = gcc
-C_FLAGS = -Wall -Wextra #-Werror -g
+C_FLAGS = -Wall -Wextra -Werror -g
 FRAM = -I minilibx -lmlx -framework OpenGL -framework AppKit -g
 
 OBJ_PATH = ./obj/
@@ -15,7 +15,7 @@ INC_PATH = ./includes/
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 INC_NAME = fdf.h
-SRC_NAME = main.c julia.c mend.c lyambda.c
+SRC_NAME = main.c julia.c mend.c burningship.c put.c move.c
 
 SRC = $(addprefix ,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))

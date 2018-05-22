@@ -1,42 +1,22 @@
 #include "fractol.h"
 
-static int		key_hook(int keycode, t_mlx *param)
+void	check(t_mlx *mlx)
 {
-	if (keycode == 53)
-	{
-		mlx_destroy_window(param->mlx, param->win);
-		mlx_destroy_image(param->mlx, param->mlx);
-		//system("leaks fractol");
-        exit(1);
-    }
-	return (0);
-}
-
-void	error_arg(void)
-{
-	write(1, "\033[33mUsage <filename> [mandelbrot/julia/burningship]\n", 53);
-	exit(1);
-}
-
-void	check(t_mlx *mlx, char *str)
-{
-	if (ft_strcmp(str, "mandelbrot") == 0)
+	if (ft_strcmp(mlx->name, "mandelbrot") == 0)
 	{
 		init_mend(mlx);
-		mend(mlx);
 		mlx->fractal = 0;
 		return ;
 	}
-	else if (ft_strcmp(str, "julia") == 0)
+	else if (ft_strcmp(mlx->name, "julia") == 0)
 	{
 		init_julia(mlx);
-		juliaa(mlx);
 		mlx->fractal = 0;
 		return ;
 	}
-	else if (ft_strcmp(str, "burningship") == 0)
+	else if (ft_strcmp(mlx->name, "burningship") == 0)
 	{
-		init_lyam(mlx);
+		init_burningship(mlx);
 		mlx->fractal = 0;
 		return ;
 	}
@@ -47,13 +27,24 @@ int      main (int argc, char **argv)
 {
 	t_mlx	mlx;
 
+	mlx.C = 255;
+	mlx.H = 1080;
+	mlx.W = 1920;
+	mlx.c1 = 0x623324;
+	mlx.c2 = 0x00ff65;
+	mlx.maxIteration = 100;
 	if (argc != 2)
 		error_arg();
-	check(&mlx, argv[1]);
+	mlx.mlx = mlx_init();
+	mlx.win = mlx_new_window(mlx.mlx, mlx.W, mlx.H, "fractol");
+	mlx.name = argv[1];
+	check(&mlx);
 	if (mlx.fractal == 1)
 		error_arg();
-	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
 	mlx_key_hook(mlx.win, key_hook, &mlx);
-	mlx_loop(mlx.mlx);	
+	mlx_hook(mlx.win, 6, 1L < 6, mouse_julia, &mlx);
+	// mlx_hook(mlx.win, 4, 0, mouse_zoom, &xml);
+	// mlx_loop_hook(mlx.mlx, zoooooom, &mlx);
+	mlx_loop(mlx.mlx);
 	return (0);
 }

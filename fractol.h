@@ -7,9 +7,6 @@
 # include <stdlib.h>
 # include "libft/libft.h"
 
-# define H 		1080
-# define W	 	1920
-
 typedef struct		s_mlx
 {
 	void			*mlx;
@@ -30,38 +27,35 @@ typedef struct		s_mlx
 	int				maxIteration;
 	int				x;
 	int				y;
-	int				x1;
-	int				y1;
 	int				*data;
-	unsigned int	r;
-	unsigned int	g;
-	unsigned int	b;
 	int				color;
-	int				xx;
-	int				cx;
 	double			magnify;
-	int				cy;
 	int				i;
-	double			xmin;
-	double			xmax;
-	double			ymin;
-	double			ymax;
-	double			zr;
-	double			zi;
 	double			ci;
 	double			cr;
 	double			tmp;
 	int 			fractal;
+	int 			C;
+	char			*name;
+	double			h_x;
+	double			h_y;
+	int 			H;
+	int 			W;
+	unsigned int 			c1;
+	unsigned int 			c2;
 }					t_mlx;
 
 void        juliaa(t_mlx *mlx);
-void		do_it(t_mlx *data);
 int         mouse_move(int x, int y, void *data);
 void        pix_to_img(t_mlx *data, int x, int y, int color);
-void 	mend(t_mlx *mlx);
-void 	lyam(t_mlx *mlx);
-void	init_lyam(t_mlx *mlx);
-void	init_mend(t_mlx *mlx);
-void	init_julia(t_mlx *mlx);
+void 		mend(t_mlx *mlx);
+void 		burningship(t_mlx *mlx);
+void		init_burningship(t_mlx *mlx);
+void		init_mend(t_mlx *mlx);
+void		init_julia(t_mlx *mlx);
+int			key_hook(int keycode, t_mlx *param);
+void		error_arg(void);
+void		check(t_mlx *mlx);
+int		mouse_julia(int x, int y, t_mlx *e);
 
 #endif
