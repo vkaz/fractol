@@ -69,4 +69,5 @@ void	burningship(t_mlx *mlx)
 		}
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+	print(mlx);
 }

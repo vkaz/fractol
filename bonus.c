@@ -19,9 +19,9 @@ void		bonus_iter(t_mlx *mlx)
 	{
 		mlx->oldre = mlx->newre;
 		mlx->oldim = mlx->newim;
-		mlx->newre = tan(mlx->oldre * mlx->oldre) - tan(mlx->oldim * mlx->oldim)
+		mlx->newre = (mlx->oldre * mlx->oldre) - (mlx->oldim * mlx->oldim)
 			+ mlx->cre;
-		mlx->newim = 2 * mlx->oldre * mlx->oldim + mlx->cim;
+		mlx->newim = -2 * mlx->oldre * mlx->oldim + mlx->cim;
 		if ((mlx->newre * mlx->newre + mlx->newim * mlx->newim) > 4)
 			break ;
 		mlx->i++;
@@ -42,8 +42,8 @@ void		init_bonus(t_mlx *mlx)
 	mlx->zoom = 1.0;
 	mlx->movex = 0;
 	mlx->movey = 0;
-	mlx->cim = 0.7;
-	mlx->cre = 0.3;
+	mlx->cim = -2.1;
+	mlx->cre = -1.2;
 	bonus(mlx);
 }
 
@@ -67,4 +67,5 @@ void		bonus(t_mlx *mlx)
 		}
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+	print(mlx);
 }

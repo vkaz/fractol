@@ -41,6 +41,16 @@ void	check(t_mlx *mlx)
 	mlx->fractal = 1;
 }
 
+void	print(t_mlx *mlx)
+{
+	PUT(mlx->mlx, mlx->win, 0, 40, CC, "1 and 2 change color");
+	PUT(mlx->mlx, mlx->win, 0, 60, CC, "move by arrows");
+	PUT(mlx->mlx, mlx->win, 0, 80, CC, "change shade by c and x");
+	PUT(mlx->mlx, mlx->win, 0, 100, CC, "+ to increase iteration");
+	PUT(mlx->mlx, mlx->win, 0, 120, CC, "- to decrease iteration");
+	PUT(mlx->mlx, mlx->win, 0, 140, CC, "change zoom by mouse wheel");
+}
+
 void	initt(t_mlx *mlx)
 {
 	mlx->c = 255;
@@ -49,17 +59,18 @@ void	initt(t_mlx *mlx)
 	mlx->c1 = 0xff0008;
 	mlx->c2 = 0x00ff65;
 	mlx->maxiteration = 100;
+	mlx->mouse_stop = 1;
+	mlx->mlx = mlx_init();
+	mlx->win = mlx_new_window(mlx->mlx, mlx->w, mlx->h, "fractol");
 }
 
 int		main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
-	initt(&mlx);
 	if (argc != 2)
 		error_arg();
-	mlx.mlx = mlx_init();
-	mlx.win = mlx_new_window(mlx.mlx, mlx.w, mlx.h, "fractol");
+	initt(&mlx);
 	mlx.name = argv[1];
 	check(&mlx);
 	if (mlx.fractal == 1)

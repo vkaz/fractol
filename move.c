@@ -16,7 +16,7 @@ int		mouse_julia(int x, int y, t_mlx *e)
 {
 	if (x < 0 || x >= e->w || y < 0 || y >= e->h)
 		return (0);
-	if (ft_strcmp(e->name, "julia") == 0)
+	if (ft_strcmp(e->name, "julia") == 0 && e->mouse_stop > 0)
 	{
 		e->cre = (double)(x - 500) / (double)(500);
 		e->cim = (double)(y - 500) / (double)(500);

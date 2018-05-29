@@ -44,6 +44,8 @@ void		keys(t_mlx *param, int keycode)
 		param->c1 = 0x68ff49;
 		param->c2 = 0x5032fc;
 	}
+	if (keycode == 49)
+		param->mouse_stop *= -1;
 	putt(param);
 }
 
@@ -56,7 +58,7 @@ int			key_hook(int keycode, t_mlx *param)
 		exit(1);
 	}
 	if (keycode == 69 || keycode == 78 || keycode == 8 || keycode == 7
-		|| keycode == 18 || keycode == 19)
+		|| keycode == 18 || keycode == 19 || keycode == 49)
 		keys(param, keycode);
 	if (keycode <= 126 && keycode >= 123)
 		move_on_map(keycode, param);

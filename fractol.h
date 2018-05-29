@@ -12,6 +12,8 @@
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
+# define CC		0x45f442
+# define PUT	mlx_string_put
 
 # include "mlx.h"
 # include <math.h>
@@ -54,6 +56,7 @@ typedef struct		s_mlx
 	int				w;
 	unsigned int	c1;
 	unsigned int	c2;
+	int				mouse_stop;
 }					t_mlx;
 
 void				juliaa(t_mlx *mlx);
@@ -72,5 +75,6 @@ int					mouse_zoom(int keycode, int x, int y, t_mlx *e);
 void				move_on_map(int keycode, t_mlx *e);
 void				init_bonus(t_mlx *mlx);
 void				bonus(t_mlx *mlx);
+void				print(t_mlx *mlx);
 
 #endif
