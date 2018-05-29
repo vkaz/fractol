@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkaznodi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/29 15:25:56 by vkaznodi          #+#    #+#             */
+/*   Updated: 2018/05/29 15:25:58 by vkaznodi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 void	check(t_mlx *mlx)
@@ -20,20 +32,26 @@ void	check(t_mlx *mlx)
 		mlx->fractal = 0;
 		return ;
 	}
+	else if (ft_strcmp(mlx->name, "bonus") == 0)
+	{
+		init_bonus(mlx);
+		mlx->fractal = 0;
+		return ;
+	}
 	mlx->fractal = 1;
 }
 
 void	initt(t_mlx *mlx)
 {
-	mlx->C = 255;
-	mlx->H = 1080;
-	mlx->W = 1920;
-	mlx->c1 = 0x623324;
+	mlx->c = 255;
+	mlx->h = 720;
+	mlx->w = 1080;
+	mlx->c1 = 0xff0008;
 	mlx->c2 = 0x00ff65;
-	mlx->maxIteration = 100;
+	mlx->maxiteration = 100;
 }
 
-int      main (int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
@@ -41,15 +59,14 @@ int      main (int argc, char **argv)
 	if (argc != 2)
 		error_arg();
 	mlx.mlx = mlx_init();
-	mlx.win = mlx_new_window(mlx.mlx, mlx.W, mlx.H, "fractol");
+	mlx.win = mlx_new_window(mlx.mlx, mlx.w, mlx.h, "fractol");
 	mlx.name = argv[1];
 	check(&mlx);
 	if (mlx.fractal == 1)
 		error_arg();
 	mlx_key_hook(mlx.win, key_hook, &mlx);
-	mlx_hook(mlx.win, 6, 1L >> 6, mouse_julia, &mlx);
-	// mlx_hook(mlx.win, 4, 0, mouse_zoom, &xml);
-	// mlx_loop_hook(mlx.mlx, zoooooom, &mlx);
+	mlx_hook(mlx.win, 6, 0, mouse_julia, &mlx);
+	mlx_hook(mlx.win, 4, 0, mouse_zoom, &mlx);
 	mlx_loop(mlx.mlx);
 	return (0);
 }

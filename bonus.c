@@ -1,18 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   burningship.c                                      :+:      :+:    :+:   */
+/*   bonus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkaznodi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/29 15:25:15 by vkaznodi          #+#    #+#             */
-/*   Updated: 2018/05/29 15:25:18 by vkaznodi         ###   ########.fr       */
+/*   Created: 2018/05/29 16:04:29 by vkaznodi          #+#    #+#             */
+/*   Updated: 2018/05/29 16:04:31 by vkaznodi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	init_burningship(t_mlx *mlx)
+void		bonus_iter(t_mlx *mlx)
+{
+	mlx->i = 0;
+	while (mlx->i < mlx->maxiteration)
+	{
+		mlx->oldre = mlx->newre;
+		mlx->oldim = mlx->newim;
+		mlx->newre = tan(mlx->oldre * mlx->oldre) - tan(mlx->oldim * mlx->oldim)
+			+ mlx->cre;
+		mlx->newim = 2 * mlx->oldre * mlx->oldim + mlx->cim;
+		if ((mlx->newre * mlx->newre + mlx->newim * mlx->newim) > 4)
+			break ;
+		mlx->i++;
+	}
+}
+
+void		init_bonus(t_mlx *mlx)
 {
 	int		bpp;
 	int		sizeline;
@@ -26,34 +42,12 @@ void	init_burningship(t_mlx *mlx)
 	mlx->zoom = 1.0;
 	mlx->movex = 0;
 	mlx->movey = 0;
-	burningship(mlx);
+	mlx->cim = 0.7;
+	mlx->cre = 0.3;
+	bonus(mlx);
 }
 
-void	burningship_iter(t_mlx *mlx)
-{
-	mlx->cr = 1.5 * (mlx->x - mlx->w / 2) / (0.5 * mlx->zoom * (mlx->w - 300))
-		+ mlx->movex;
-	mlx->ci = (mlx->y - mlx->h / 2) / (0.5 * mlx->zoom * (mlx->h - 300))
-		+ mlx->movey;
-	mlx->newre = 0;
-	mlx->newim = 0;
-	mlx->oldre = 0;
-	mlx->oldim = 0;
-	mlx->i = 0;
-	while (mlx->i < mlx->maxiteration)
-	{
-		mlx->oldre = mlx->newre;
-		mlx->oldim = mlx->newim;
-		mlx->newre = mlx->oldre * mlx->oldre - mlx->oldim * mlx->oldim
-			+ mlx->cr;
-		mlx->newim = fabs(2 * mlx->oldre * mlx->oldim) + mlx->ci;
-		if ((mlx->newre * mlx->newre + mlx->newim * mlx->newim) > 4)
-			break ;
-		mlx->i++;
-	}
-}
-
-void	burningship(t_mlx *mlx)
+void		bonus(t_mlx *mlx)
 {
 	mlx->y = -1;
 	while (++mlx->y < mlx->h)
@@ -61,7 +55,11 @@ void	burningship(t_mlx *mlx)
 		mlx->x = -1;
 		while (++mlx->x < mlx->w)
 		{
-			burningship_iter(mlx);
+			mlx->newre = 1.5 * (mlx->x - mlx->w / 2) / (0.5 * mlx->zoom
+				* mlx->w) + mlx->movex;
+			mlx->newim = (mlx->y - mlx->h / 2) / (0.5 * mlx->zoom * mlx->h)
+				+ mlx->movey;
+			bonus_iter(mlx);
 			if (mlx->i == mlx->maxiteration)
 				pix_to_img(mlx, mlx->x, mlx->y, mlx->c1);
 			else

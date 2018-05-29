@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: vkaznodi <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/05/29 16:05:39 by vkaznodi          #+#    #+#              #
+#    Updated: 2018/05/29 16:05:39 by vkaznodi         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = fractol
 
 NOC=\033[0m
@@ -15,7 +27,7 @@ INC_PATH = ./includes/
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 INC_NAME = fdf.h
-SRC_NAME = main.c julia.c mend.c burningship.c put.c move.c
+SRC_NAME = main.c julia.c mend.c burningship.c put.c move.c bonus.c
 
 SRC = $(addprefix ,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
