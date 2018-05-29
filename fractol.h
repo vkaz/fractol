@@ -25,8 +25,8 @@ typedef struct		s_mlx
 	double			moveX;
 	double			moveY;
 	int				maxIteration;
-	int				x;
-	int				y;
+	double				x;
+	double				y;
 	int				*data;
 	int				color;
 	double			magnify;

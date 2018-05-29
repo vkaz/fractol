@@ -6,8 +6,6 @@ void	init_burningship(t_mlx *mlx)
 	int 	sizeline;
 	int 	end;
 
-	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, mlx->W, mlx->H, "fractol");
 	mlx->img = mlx_new_image(mlx->mlx, mlx->W, mlx->H);
 	mlx->data = (int*)mlx_get_data_addr(mlx->img, &bpp, &sizeline, &end);
 	mlx->bpp = bpp;
@@ -16,7 +14,6 @@ void	init_burningship(t_mlx *mlx)
 	mlx->zoom = 1.0;
 	mlx->moveX = 0;
 	mlx->moveY = 0;
-	mlx->maxIteration = 100;
 	burningship(mlx);
 }
 
@@ -43,19 +40,18 @@ void	burningship_iter(t_mlx *mlx)
 
 void 	burningship(t_mlx *mlx)
 {
-	mlx->y = 0;
-	while (mlx->y < mlx->H)
+	mlx->y = -1;
+	while (++mlx->y < mlx->H)
 	{
-		mlx->x = 0;
-		while (mlx->x < mlx->W)
+		mlx->x = -1;
+		while (++mlx->x < mlx->W)
 		{
 			burningship_iter(mlx);
 			if (mlx->i == mlx->maxIteration)
 			 	pix_to_img(mlx, mlx->x, mlx->y, mlx->c1);
 			else
 				pix_to_img(mlx, mlx->x, mlx->y, mlx->c2);
-			mlx->x++;
 		}
-		mlx->y++;
 	}
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }

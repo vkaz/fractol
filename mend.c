@@ -27,8 +27,6 @@ void	init_mend(t_mlx *mlx)
 	int 	sizeline;
 	int 	end;
 
-	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, mlx->W, mlx->H, "fractol");
 	mlx->img = mlx_new_image(mlx->mlx, mlx->W, mlx->H);
 	mlx->data = (int*)mlx_get_data_addr(mlx->img, &bpp, &sizeline, &end);
 	mlx->bpp = bpp;
@@ -37,7 +35,6 @@ void	init_mend(t_mlx *mlx)
 	mlx->zoom = 1.0;
 	mlx->moveX = -0.5;
 	mlx->moveY = 0;
-	mlx->maxIteration = 100;
 	mlx->cr = 0;
 	mlx->ci = 0;
 	mlx->tmp = 0;
@@ -54,9 +51,10 @@ void 	mend(t_mlx *mlx)
 		{
 			mend_iter(mlx);
 			if (mlx->i == mlx->maxIteration)
-			 	pix_to_img(mlx, mlx->x, mlx->y, 0x90f966);
+			 	pix_to_img(mlx, mlx->x, mlx->y, mlx->c1);
 			else
-				pix_to_img(mlx, mlx->x, mlx->y, 0x00ff65);
+				pix_to_img(mlx, mlx->x, mlx->y, mlx->c2);
 		}
 	}
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }
