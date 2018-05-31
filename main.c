@@ -48,6 +48,7 @@ void	print(t_mlx *mlx)
 	PUT(mlx->mlx, mlx->win, 10, 140, CC, "change zoom by mouse wheel");
 	PUT(mlx->mlx, mlx->win, 10, 160, CC, "iteration ");
 	PUT(mlx->mlx, mlx->win, 110, 160, CC, s);
+	free(s);
 }
 
 void	initt(t_mlx *mlx)
