@@ -44,8 +44,8 @@ int		mouse_zoom(int keycode, int x, int y, t_mlx *param)
 	if (keycode == 5)
 	{
 		param->zoom = param->zoom * 1.1;
-		param->movex += ((x - (param->w / 2)) / ((param->w / 2) * param->zoom));
-		param->movey += ((y - (param->h / 2)) / ((param->h / 2) * param->zoom));
+		param->movex += ((x - (param->w / 1.5)) / ((param->w / 1.5) * param->zoom));
+		param->movey += ((y - (param->h / 1.5)) / ((param->h / 1.5) * param->zoom));
 	}
 	if (keycode == 4)
 	{

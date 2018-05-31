@@ -12,6 +12,35 @@
 
 #include "fractol.h"
 
+void	check_bonus(t_mlx *mlx)
+{
+	if (ft_strcmp(mlx->name, "bonus1") == 0)
+	{
+		init_bonus1(mlx);
+		mlx->fractal = 0;
+		return ;
+	}
+	else if (ft_strcmp(mlx->name, "bonus2") == 0)
+	{
+		init_bonus2(mlx);
+		mlx->fractal = 0;
+		return ;
+	}
+	else if (ft_strcmp(mlx->name, "bonus3") == 0)
+	{
+		init_bonus3(mlx);
+		mlx->fractal = 0;
+		return ;
+	}
+	else if (ft_strcmp(mlx->name, "bonus4") == 0)
+	{
+		init_bonus4(mlx);
+		mlx->fractal = 0;
+		return ;
+	}
+	mlx->fractal = 1;
+}
+
 void	check(t_mlx *mlx)
 {
 	if (ft_strcmp(mlx->name, "mandelbrot") == 0)
@@ -20,19 +49,20 @@ void	check(t_mlx *mlx)
 		mlx->fractal = 0;
 		return ;
 	}
-	else if (ft_strcmp(mlx->name, "julia") == 0)
+	if (ft_strcmp(mlx->name, "julia") == 0)
 	{
 		init_julia(mlx);
 		mlx->fractal = 0;
 		return ;
 	}
-	else if (ft_strcmp(mlx->name, "burningship") == 0)
+	if (ft_strcmp(mlx->name, "burningship") == 0)
 	{
 		init_burningship(mlx);
 		mlx->fractal = 0;
 		return ;
 	}
-	mlx->fractal = 1;
+	else 
+		check_bonus(mlx);
 }
 
 void	print(t_mlx *mlx)

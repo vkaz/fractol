@@ -20,13 +20,21 @@ void		putt(t_mlx *mlx)
 		juliaa(mlx);
 	else if (ft_strcmp(mlx->name, "burningship") == 0)
 		burningship(mlx);
+	else if (ft_strcmp(mlx->name, "bonus1") == 0)
+		bonus1(mlx);
+	else if (ft_strcmp(mlx->name, "bonus2") == 0)
+		bonus2(mlx);
+	else if (ft_strcmp(mlx->name, "bonus3") == 0)
+		bonus3(mlx);
+	else if (ft_strcmp(mlx->name, "bonus4") == 0)
+		bonus4(mlx);
 }
 
 void		keys(t_mlx *param, int keycode)
 {
-	if (keycode == 69)
+	if (keycode == 69 && param->maxiteration < 1000)
 		param->maxiteration += 50;
-	if (keycode == 78)
+	if (keycode == 78 && param->maxiteration > 50)
 		param->maxiteration -= 50;
 	if (keycode == 8)
 		param->c -= 25;

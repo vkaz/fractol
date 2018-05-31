@@ -74,5 +74,13 @@ void				putt(t_mlx *mlx);
 int					mouse_zoom(int keycode, int x, int y, t_mlx *e);
 void				move_on_map(int keycode, t_mlx *e);
 void				print(t_mlx *mlx);
+void				init_bonus1(t_mlx *mlx);
+void				bonus1(t_mlx *mlx);
+void				bonus2(t_mlx *mlx);
+void				init_bonus2(t_mlx *mlx);
+void				init_bonus3(t_mlx *mlx);
+void				bonus3(t_mlx *mlx);
+void				bonus4(t_mlx *mlx);
+void				init_bonus4(t_mlx *mlx);
 
 #endif
