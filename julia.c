@@ -67,6 +67,6 @@ void		juliaa(t_mlx *mlx)
 		}
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
-	PUT(mlx->mlx, mlx->win, 0, 20, CC, "space to stop image");
+	PUT(mlx->mlx, mlx->win, 10, 20, CC, "space to stop image");
 	print(mlx);
 }

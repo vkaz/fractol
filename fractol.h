@@ -73,8 +73,6 @@ int					mouse_julia(int x, int y, t_mlx *e);
 void				putt(t_mlx *mlx);
 int					mouse_zoom(int keycode, int x, int y, t_mlx *e);
 void				move_on_map(int keycode, t_mlx *e);
-void				init_bonus(t_mlx *mlx);
-void				bonus(t_mlx *mlx);
 void				print(t_mlx *mlx);
 
 #endif

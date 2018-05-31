@@ -32,23 +32,22 @@ void	check(t_mlx *mlx)
 		mlx->fractal = 0;
 		return ;
 	}
-	else if (ft_strcmp(mlx->name, "bonus") == 0)
-	{
-		init_bonus(mlx);
-		mlx->fractal = 0;
-		return ;
-	}
 	mlx->fractal = 1;
 }
 
 void	print(t_mlx *mlx)
 {
-	PUT(mlx->mlx, mlx->win, 0, 40, CC, "1 and 2 change color");
-	PUT(mlx->mlx, mlx->win, 0, 60, CC, "move by arrows");
-	PUT(mlx->mlx, mlx->win, 0, 80, CC, "change shade by c and x");
-	PUT(mlx->mlx, mlx->win, 0, 100, CC, "+ to increase iteration");
-	PUT(mlx->mlx, mlx->win, 0, 120, CC, "- to decrease iteration");
-	PUT(mlx->mlx, mlx->win, 0, 140, CC, "change zoom by mouse wheel");
+	char	*s;
+
+	s = ft_itoa(mlx->maxiteration);
+	PUT(mlx->mlx, mlx->win, 10, 40, CC, "1 and 2 change color");
+	PUT(mlx->mlx, mlx->win, 10, 60, CC, "move by arrows");
+	PUT(mlx->mlx, mlx->win, 10, 80, CC, "change shade by c and x");
+	PUT(mlx->mlx, mlx->win, 10, 100, CC, "+ to increase iteration");
+	PUT(mlx->mlx, mlx->win, 10, 120, CC, "- to decrease iteration");
+	PUT(mlx->mlx, mlx->win, 10, 140, CC, "change zoom by mouse wheel");
+	PUT(mlx->mlx, mlx->win, 10, 160, CC, "iteration ");
+	PUT(mlx->mlx, mlx->win, 110, 160, CC, s);
 }
 
 void	initt(t_mlx *mlx)

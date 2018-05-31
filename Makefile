@@ -27,7 +27,7 @@ INC_PATH = ./includes/
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 INC_NAME = fdf.h
-SRC_NAME = main.c julia.c mend.c burningship.c put.c move.c bonus.c
+SRC_NAME = main.c julia.c mend.c burningship.c put.c move.c
 
 SRC = $(addprefix ,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))

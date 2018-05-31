@@ -20,8 +20,6 @@ void		putt(t_mlx *mlx)
 		juliaa(mlx);
 	else if (ft_strcmp(mlx->name, "burningship") == 0)
 		burningship(mlx);
-	else if (ft_strcmp(mlx->name, "bonus") == 0)
-		bonus(mlx);
 }
 
 void		keys(t_mlx *param, int keycode)
