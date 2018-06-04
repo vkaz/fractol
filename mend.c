@@ -45,8 +45,6 @@ void		init_mend(t_mlx *mlx)
 	mlx->zoom = 1.0;
 	mlx->movex = -0.5;
 	mlx->movey = 0;
-	mlx->cr = 0;
-	mlx->ci = 0;
 	mlx->tmp = 0;
 	mend(mlx);
 }

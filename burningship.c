@@ -31,10 +31,6 @@ void	init_burningship(t_mlx *mlx)
 
 void	burningship_iter(t_mlx *mlx)
 {
-	mlx->cr = 1.5 * (mlx->x - mlx->w / 2) / (0.5 * mlx->zoom * (mlx->w - 300))
-		+ mlx->movex;
-	mlx->ci = (mlx->y - mlx->h / 2) / (0.5 * mlx->zoom * (mlx->h - 300))
-		+ mlx->movey;
 	mlx->newre = 0;
 	mlx->newim = 0;
 	mlx->oldre = 0;
@@ -61,6 +57,10 @@ void	burningship(t_mlx *mlx)
 		mlx->x = -1;
 		while (++mlx->x < mlx->w)
 		{
+			mlx->cr = 1.5 * (mlx->x - mlx->w / 2) / (0.5 * mlx->zoom *
+				(mlx->w - 300)) + mlx->movex;
+			mlx->ci = (mlx->y - mlx->h / 2) / (0.5 * mlx->zoom *
+				(mlx->h - 300)) + mlx->movey;
 			burningship_iter(mlx);
 			if (mlx->i == mlx->maxiteration)
 				pix_to_img(mlx, mlx->x, mlx->y, mlx->c1);

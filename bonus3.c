@@ -59,7 +59,7 @@ void		bonus3(t_mlx *mlx)
 		{
 			mlx->cr = 1.5 * (mlx->x - mlx->w / 2) / (0.5 * mlx->zoom * mlx->w)
 				+ mlx->movex;
-			mlx->ci = (mlx->y - mlx->h / 2) / (0.5 * mlx->zoom * mlx->h)
+			mlx->ci = 1.5 * (mlx->y - mlx->h / 2) / (0.5 * mlx->zoom * mlx->h)
 				+ mlx->movey;
 			bonus3_iter(mlx);
 			if (mlx->i == mlx->maxiteration)
@@ -71,4 +71,3 @@ void		bonus3(t_mlx *mlx)
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	print(mlx);
 }
-

@@ -17,25 +17,21 @@ void	check_bonus(t_mlx *mlx)
 	if (ft_strcmp(mlx->name, "bonus1") == 0)
 	{
 		init_bonus1(mlx);
-		mlx->fractal = 0;
 		return ;
 	}
 	else if (ft_strcmp(mlx->name, "bonus2") == 0)
 	{
 		init_bonus2(mlx);
-		mlx->fractal = 0;
 		return ;
 	}
 	else if (ft_strcmp(mlx->name, "bonus3") == 0)
 	{
 		init_bonus3(mlx);
-		mlx->fractal = 0;
 		return ;
 	}
 	else if (ft_strcmp(mlx->name, "bonus4") == 0)
 	{
 		init_bonus4(mlx);
-		mlx->fractal = 0;
 		return ;
 	}
 	mlx->fractal = 1;
@@ -46,22 +42,19 @@ void	check(t_mlx *mlx)
 	if (ft_strcmp(mlx->name, "mandelbrot") == 0)
 	{
 		init_mend(mlx);
-		mlx->fractal = 0;
 		return ;
 	}
 	if (ft_strcmp(mlx->name, "julia") == 0)
 	{
 		init_julia(mlx);
-		mlx->fractal = 0;
 		return ;
 	}
 	if (ft_strcmp(mlx->name, "burningship") == 0)
 	{
 		init_burningship(mlx);
-		mlx->fractal = 0;
 		return ;
 	}
-	else 
+	else
 		check_bonus(mlx);
 }
 
@@ -90,6 +83,7 @@ void	initt(t_mlx *mlx)
 	mlx->c2 = 0x00ff65;
 	mlx->maxiteration = 100;
 	mlx->mouse_stop = 1;
+	mlx->fractal = 0;
 	mlx->mlx = mlx_init();
 	mlx->win = mlx_new_window(mlx->mlx, mlx->w, mlx->h, "fractol");
 }

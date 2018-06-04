@@ -74,7 +74,8 @@ int			key_hook(int keycode, t_mlx *param)
 
 void		error_arg(void)
 {
-	write(1, "\033[33mUsage <filename> [mandelbrot/julia/burningship]\n", 53);
+	write(1, "\033[33mUsage <filename> [mandelbrot/julia/burningship"
+		"/bonus1/bonus2/bonus3/bonus4]\n", 80);
 	exit(1);
 }
 
